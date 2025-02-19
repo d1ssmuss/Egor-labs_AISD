@@ -1,4 +1,5 @@
 """
+Егор Сипатов ИСТбд-23
 С клавиатуры вводится два числа K и N.
 Квадратная матрица А(N,N), состоящая из 4-х равных по размерам подматриц, B,C,D,E заполняется случайным образом целыми числами в интервале [-10,10].
 Для отладки использовать не случайное заполнение, а целенаправленное.
@@ -25,17 +26,15 @@ D	Е
 иначе вычисляется выражение (AТ +G-FТ)*K,
 где G-нижняя треугольная матрица, полученная из А.
 Выводятся по мере формирования А, F и все матричные операции последовательно.
-
-
 """
 import copy
 from functools import reduce
-
 import numpy as np
-import matplotlib as plt
+import matplotlib.pyplot as plt
 from numpy.random.mtrand import operator
 
 
+print("Используем целенаправленное тестирование")
 print("тут менять k n ")
 K = -9
 # N = int(input("Введите число N:"))
@@ -46,16 +45,16 @@ sum_of_numbers = 0 # Сумма чисел
 product_of_numbers_perimetr = 1 # Произведение чисел по периметру
 
 print("B")
-b = np.array([[1,2,3], [4,5,6], [7,8,9]])
+b = np.array([[71,76,90], [41,12,53], [45,24,58]])
 print(b, '\n')
 print("C")
-c = np.array([[1,1,1], [1,1,1], [1,1,1]])
+c = np.array([[10,57,74], [90,40,33], [15,52,11]])
 print(c, '\n')
 print("D")
-d = np.array([[5,5,5], [5,5,5], [5,5,5]])
+d = np.array([[43,28,86], [36,48,75], [58,28,71]])
 print(d, '\n')
 print("E")
-e = np.array([[1,1,1], [2,2,2], [4,4,4]])
+e = np.array([[89,64,86], [18,94,16], [29,80,29]])
 print(e, '\n')
 
 # Матрица А
@@ -64,57 +63,39 @@ a = np.vstack(((np.hstack([d, e])), (np.hstack([c, b]))))
 print(a)
 
 
-#  **** Определитель матрицы A
+# Определитель матрицы A
 det_A = int(np.linalg.det(a))
-print(f"Определитель матрицы A: {det_A}")
-
-
+# print(f"Определитель матрицы A: {det_A}")
 # G-нижняя треугольная матрица, полученная из А
 g = np.tri(N) * a
-print("Матрица G:")
-print(g)
-
-
-print("f")
+# print("Матрица G:")
+# Матрица F
 f = copy.deepcopy(a)
-print(f)
 
 # Работаем с E - область 3
 for i in range(0, middle_line, 2):
     for j in range(0, len(e)):
         # print(j,i)
         if i % 2 == 0 and e[j][i] > K:
-            print(e[j][i])
             sum_of_numbers += e[j][i]
-print("Сумма чисел, больших К в нечетных столбцах в матрице E: ", sum_of_numbers)
+# print("Сумма чисел, больших К в нечетных столбцах в матрице E: ", sum_of_numbers)
 
 
-# ------
 # Здесь периметр - это внешние числа матрицы
 # Периметр
-elements_p = []
 print('-'*100)
 for i in range(0, len(e)):
     if i == 0 or i == len(e) - 1:
         product_of_numbers_perimetr *= reduce(operator.mul, e[i], 1)
-        print(reduce(operator.mul, e[i], 1), "!!")
     else:
-        print(e[i][0] + e[i][-1], "!")
         product_of_numbers_perimetr *= e[i][0] + e[i][-1]
 
-print(f"Элементы периметра области 2: {elements_p}")
 print("Произведение чисел по периметру в области 2: ", product_of_numbers_perimetr)
-
-
-
-
 
 # --------------------------------------
 
 if sum_of_numbers > product_of_numbers_perimetr:
     # меняем C и E симметрично
-    # Вроде правильно
-    print("Случай!!!")
     print("sum_of_numbers > product_of_numbers_perimetr")
     """f[middle_line:N, middle_line:N] = np.fliplr(c)
     f[middle_line:N, :middle_line] = np.fliplr(e)"""
@@ -124,30 +105,76 @@ else:
     print("sum_of_numbers < product_of_numbers_perimetr")
     f = np.vstack(((np.hstack([d, e])), (np.hstack([b, c]))))
 
-
 print("f::")
 print(f)
-
-# *** Сумма Диагональных элементов
+# Сумма Диагональных элементов
 summ_diagonal_elements = sum(np.diagonal(f))
-print("Сумма Диагональных элементов:", summ_diagonal_elements)
 
-
-print('*'*100)
 
 if det_A > summ_diagonal_elements:
+    print("Определитель Матрицы А больше суммы диагональных элементов матрицы F")
     # A*A-1 – K * F-1
-    pass
+    """
+    1) a-1
+    2) a * a-1
+    3) f-1
+    4)k * f-1
+    5) (a * a-1) - (k * f-1)
+    """
+    print(a)
+    reverse_a = np.linalg.inv(a) # 1
+    a_compose_reverse_a = np.dot(a, reverse_a) # 2
+    print(a_compose_reverse_a)
+    reverse_f = np.linalg.inv(f) # 3
+    k_compose_reverse_f = K * reverse_f # 4
+    print(k_compose_reverse_f)
+    result = a_compose_reverse_a - k_compose_reverse_f # 5
+    print(result)
+
 else:
+    print("Определитель Матрицы А меньше или равно суммы диагональных элементов матрицы F")
     # (AТ +G-FТ)*K
     # G-нижняя треугольная матрица, полученная из А
-    pass
+    """
+    1) at
+    2) ft
+    3) at + g
+    4) at + g - ft
+    5) (at + g - ft) * k
+    """
+    transposed_a = np.transpose(a) # 1
+    print(transposed_a)
+    transposed_f = np.transpose(f) # 2
+    print(transposed_f)
+    at_plus_g = transposed_a + g # 3
+    print(at_plus_g)
+    at_plus_g_minus_ft = at_plus_g - transposed_f # 4
+    print(at_plus_g_minus_ft)
+    result = at_plus_g_minus_ft * K
+    print(result)
 
+# Графики (визуализация)
+# Создаем фигуру и подграфики
+fig, axs = plt.subplots(2, 2, figsize=(10, 10))
 
+# Линейный график
+axs[0, 0].plot(f.flatten())
+axs[0, 0].set_title('Линейный график')
 
-# Выводятся по мере формирования А, F и все матричные операции последовательно
+# Гистограмма
+axs[0, 1].hist(f.flatten(), bins=30)
+axs[0, 1].set_title('Гистограмма')
 
-# + график
+# Точечный график
+rows = f.tolist()
+columns = np.array(f).T.tolist()
+axs[1, 0].scatter(rows, columns)
+axs[1, 0].set_title('Точечный график')
 
+# Тепловая карта
+cax = axs[1, 1].imshow(f, cmap='hot', interpolation='nearest')
+axs[1, 1].set_title('Тепловая карта')
+fig.colorbar(cax, ax=axs[1, 1])
 
-
+plt.tight_layout()
+plt.show()
