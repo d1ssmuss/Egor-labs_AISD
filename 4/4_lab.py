@@ -69,7 +69,7 @@ g = np.tri(N) * a
 # Матрица F
 f = copy.deepcopy(a)
 
-# Работаем с E - область 3
+# Работаем с E
 for i in range(0, middle_line, 2):
     for j in range(0, len(e)):
         # print(j,i)
