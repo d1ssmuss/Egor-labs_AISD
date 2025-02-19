@@ -125,7 +125,6 @@ if det_A > summ_diagonal_elements:
 
 else:
     # (AТ +G-FТ)*K
-    # G-нижняя треугольная матрица, полученная из А
     """
     1) at
     2) ft
