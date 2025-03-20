@@ -8,7 +8,6 @@
 F(1) = 1; G(1) = 1; F(n) = (-1)**n*(F(n–1) – G(n–1)) / (n+5)!, G(n) = F(n–1) + 2*G(n–1), при n >=2
 """
 import math
-
 import timeit
 
 # Ввод числа
