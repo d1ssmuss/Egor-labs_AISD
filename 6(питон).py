@@ -14,14 +14,14 @@ from itertools import product
 
 def get_input():
     # Ввод количества предметов и их названий
-    T = int(input("Введите количество предметов: "))
+    T = int(input("Введите количество предметов(<=7): "))
     items = []
     for i in range(T):
         item = input(f"Введите название предмета {i+1}: ")
         items.append(item)
 
     # Ввод количества людей
-    K = int(input("Введите количество людей: "))
+    K = int(input("Введите количество людей(<=7): "))
     people = []
     for i in range(K):
         person = input(f"Введите имя человека {i+1}: ")
