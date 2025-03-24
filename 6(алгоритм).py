@@ -47,15 +47,6 @@ def distribute_items_recursive(items, people, current=None, remaining=None, resu
 
     return result
 
-def find_optimal_distribution(distributions, people):
-    # Поиск оптимального распределения, где у каждого человека есть хотя бы один предмет
-    for dist in distributions:
-        person_items = {person: 0 for person in people}
-        for _, person in dist:
-            person_items[person] += 1
-        if all(count > 0 for count in person_items.values()):
-            return dist
-    return None
 
 def main():
     items, people = get_input()
@@ -71,12 +62,6 @@ def main():
         count += 1
     print(f"Время выполнения: {end_time - start_time} секунд")
 
-    optimal_distribution = find_optimal_distribution(distributions, people)
-    if optimal_distribution:
-        print("\nОптимальный вариант распределения (у каждого человека есть хотя бы один предмет):")
-        print(optimal_distribution)
-    else:
-        print("\nНе удалось найти оптимальный вариант распределения.")
 
 if __name__ == "__main__":
     main()
