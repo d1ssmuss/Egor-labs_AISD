@@ -9,7 +9,7 @@ class TicTacToe:
         self.master.title('Крестики-нолики')
         self.master.geometry('%dx%d+%d+%d' % (700, 700, 600, 150))
         self.master.config(bg="#0080FF")
-        self.game_title = Label(master, text="TicTacToe", font=("Times New Roman", 50), background="#0080FF",
+        self.game_title = Label(master, text="Крестики-нолики", font=("Times New Roman", 50), background="#0080FF",
                                 foreground="#FFFFFF")
         self.game_title.pack(pady=50)
 
@@ -131,8 +131,6 @@ class TicTacToe:
         if step != "":
             x, y = divmod(step, 3)
             self.make_move(x, y)
-
-
 if __name__ == "__main__":
     root = Tk()
     app = TicTacToe(root)
