@@ -27,10 +27,8 @@ D	Е
 Выводятся по мере формирования А, F и все матричные операции последовательно.
 """
 import copy
-from functools import reduce
 import numpy as np
 import matplotlib.pyplot as plt
-from numpy.random.mtrand import operator
 
 print("Тестирование: Целенаправленное")
 K = int(input("Введите число K: "))
