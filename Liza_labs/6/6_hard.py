@@ -12,19 +12,7 @@
 import time
 import itertools
 
-def generate_permutations_algorithmic(animals):
-    def permute(prefix, remaining):
-        if len(remaining) == 0:
-            permutations.append(prefix)
-        else:
-            for i in range(len(remaining)):
-                new_prefix = prefix + [remaining[i]]
-                new_remaining = remaining[:i] + remaining[i+1:]
-                permute(new_prefix, new_remaining)
 
-    permutations = []
-    permute([], animals)
-    return permutations
 
 def generate_permutations_pythonic(animals):
     return list(itertools.permutations(animals))
@@ -71,4 +59,3 @@ if optimal_permutation:
     print(f"Оптимальный вариант: {optimal_permutation}")
 else:
     print("Невозможно найти допустимую расстановку с заданными ограничениями.")
-
