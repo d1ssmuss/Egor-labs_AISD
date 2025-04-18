@@ -26,13 +26,19 @@ def generate_permutations_algorithmic(animals):
     return permutations
 
 # Пример использования
-n = int(input("Введите количество животных: "))
-animals = [input(f"Введите животное {i + 1}: ") for i in range(n)]
-start_time = time.time()
-algorithmic_permutations = generate_permutations_algorithmic(animals)
-end_time = time.time()
-print(f"Время алгоритмического подхода: {end_time - start_time} секунд")
-print("Все возможные варианты: ")
-for i in algorithmic_permutations:
-    print(i)
-print(f"Количество вариантов расстановки клеток : {len(algorithmic_permutations)}")
+try:
+    n = int(input("Введите количество животных: "))
+    if n >= 0:
+        animals = [input(f"Введите животное {i + 1}: ") for i in range(n)]
+        start_time = time.time()
+        algorithmic_permutations = generate_permutations_algorithmic(animals)
+        end_time = time.time()
+        print(f"Время алгоритмического подхода: {end_time - start_time} секунд")
+        print("Все возможные варианты: ")
+        for i in algorithmic_permutations:
+            print(i)
+        print(f"Количество вариантов расстановки клеток : {len(algorithmic_permutations)}")
+    else:
+        print("Вы ввели отрицательное число. Пожалуйста, перезапустите программу")
+except:
+    print("Некорректный ввод данных! Пожалуйста, перезапустите программу!")
