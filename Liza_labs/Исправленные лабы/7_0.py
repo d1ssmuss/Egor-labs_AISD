@@ -5,8 +5,6 @@
 Рекомендуется использовать внутреннюю библиотеку питона  tkinter.
 В программе должны быть реализованы минимум одно окно ввода, одно окно вывода (со скролингом), одно текстовое поле, одна кнопка.
 """
-
-
 import time
 import itertools
 import tkinter as tk
@@ -77,13 +75,10 @@ def on_calculate():
 def on_size_select(size):
     size_var.set(size)
 
-
-
 # Создание главного окна
 root = tk.Tk()
 root.geometry('%dx%d+%d+%d' % (1500, 800, 200, 140))
 root.title("Оптимальная расстановка животных")
-
 
 # Стиль
 style = ttk.Style()
@@ -124,16 +119,14 @@ for size in ["S", "M", "L"]:
     radiobutton = ttk.Radiobutton(size_frame, text=size, variable=size_var, value=size, command=lambda s=size: on_size_select(s))
     radiobutton.pack(side=tk.LEFT, padx=10)
 
-# Кнопка для запуска расчета
 calculate_button = ttk.Button(root, text="Рассчитать", command=on_calculate)
 calculate_button.pack(pady=20)
 
-# Текстовое поле для вывода результата
+# Вывод результата
 output_frame = ttk.Frame(root)
 output_frame.pack(fill=tk.BOTH, expand=True, padx=10, pady=10)
 
 output_text = scrolledtext.ScrolledText(output_frame, width=80, height=15, font=("Arial", 26))
 output_text.pack(fill=tk.BOTH, expand=True)
 
-# Запуск главного цикла
 root.mainloop()
